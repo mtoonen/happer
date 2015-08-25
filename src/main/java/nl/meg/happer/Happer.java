@@ -51,7 +51,6 @@ public class Happer extends Moveable {
         }
 
         if (done.contains(end) && done.contains(start)) {
-            System.out.println(  " ******************************");
             Set<GameObject> traversed = new HashSet<>();
             end.traverseNeighbours(start, traversed);
             return true;
