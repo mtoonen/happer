@@ -19,8 +19,8 @@ public class Controller implements KeyListener {
 
     private List<GameObject> objecten = new ArrayList<>();
 
-    public int width = 10;
-    public int height = 10;
+    public int width = 20;
+    public int height = 15;
 
     private Screen screen;
 
@@ -53,7 +53,6 @@ public class Controller implements KeyListener {
                     go.setEnterable(true);
                 }
                 objecten.add(go);
-
             }
         }
 
@@ -69,11 +68,11 @@ public class Controller implements KeyListener {
         happer.calcRoute(this);
         screen.setVisible(true);
 
-        refresh();
+        repaint();
     }
     
     public void start() throws InterruptedException {
-       refresh();
+       repaint();
     }
 
     public GameObject lookup(int x, int y) {
@@ -91,7 +90,7 @@ public class Controller implements KeyListener {
         }
     }
 
-    public void refresh() {
+    public void repaint() {
         screen.repaint();
     }
 
@@ -141,7 +140,6 @@ public class Controller implements KeyListener {
         }
 
         if (moved) {
-
             for (GameObject go : objecten) {
                 go.solution = false;
                 go.cost = 0;
@@ -152,6 +150,6 @@ public class Controller implements KeyListener {
             }
             happer.calcRoute(this);
         }
-        refresh();
+        repaint();
     }
 }

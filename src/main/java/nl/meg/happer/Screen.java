@@ -68,8 +68,7 @@ class Screen extends JFrame {
         }
         
         if(evt.getButton() == 3){
-            //controller.replaceGO(evt.getX(), evt.getY(), false);
-            int a = 0;
+            controller.replaceGO(evt.getX(), evt.getY(), false);
         }
         oldX = evt.getX();
         oldY = evt.getY();

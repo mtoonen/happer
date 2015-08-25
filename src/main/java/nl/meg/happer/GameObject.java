@@ -39,18 +39,20 @@ public class GameObject implements Comparable<GameObject> {
 
     public void draw(Graphics g, int max) {
         if (enterable) {
-            g.setColor(new Color(Color.HSBtoRGB(((float) cost / (float) max), 0.5f, 0.8f)));
+        	float hue = ((float) cost / (float) max);
+        	if (solution || (moveable != null && moveable.solution)) {
+        		g.setColor(new Color(Color.HSBtoRGB(1.0f - hue, 1f, 1f)));
+        	}
+        	else {
+        		g.setColor(new Color(Color.HSBtoRGB(hue, 0.5f, 0.8f)));
+        	}
+        	
             g.fillRect(x * size, y * size, size, size);
         } else {
             g.setColor(Color.BLACK);
             g.fillRect(x * size, y * size, size, size);
         }
 
-        if (solution|| (moveable != null && moveable.solution)) {
-        	g.setColor(new Color(0xaa00ff00, true));
-            g.fillRect(x * size, y * size, size, size);
-        }
-        
         g.setColor(Color.BLACK);
         g.drawRect(x * size, y * size, size, size);
         
