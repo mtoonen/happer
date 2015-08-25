@@ -46,7 +46,7 @@ public class GameObject implements Comparable<GameObject> {
             g.fillRect(x * size, y * size, size, size);
         }
 
-        if (solution) {
+        if (solution|| (moveable != null && moveable.solution)) {
         	g.setColor(new Color(0xaa00ff00, true));
             g.fillRect(x * size, y * size, size, size);
         }
@@ -87,7 +87,6 @@ public class GameObject implements Comparable<GameObject> {
             return;
         }
         traversed.add(this);
-        System.out.println("Via: " +id);
         this.solution = true;
         Set<GameObject> lowestNeighbours = getLowestCostNeighbours(traversed);
         for (GameObject lowestNeighbour : lowestNeighbours) {
@@ -243,5 +242,7 @@ public class GameObject implements Comparable<GameObject> {
     @Override
     public String toString() {
         return (x + "x" + y + ": " + cost);
+
     }
+
 }

@@ -24,6 +24,7 @@ public class Happer extends Moveable {
         super(id);
     }
 
+    
     public void calcRoute() {
         List<GameObject> length = new ArrayList<>();
         List<GameObject> done = new ArrayList<>();
@@ -37,6 +38,7 @@ public class Happer extends Moveable {
             GameObject go = length.get(0);
             if (go == enemy || go == enemy.currentPos) {
                 enemy.cost = enemy.currentPos.cost;
+                enemy.solution = true;
                 done.add(enemy.currentPos);
                 break;
             }
@@ -49,7 +51,11 @@ public class Happer extends Moveable {
             System.out.println(  " ******************************");
             Set<GameObject> traversed = new HashSet<>();
             enemy.currentPos.traverseNeighbours(this.currentPos, traversed);
+            System.out.println( "YES FOUND!");
+        }else{
+            System.out.println( "NOT FOUND!");
         }
+        
     }
     
     @Override
