@@ -75,6 +75,15 @@ public class Controller implements KeyListener {
        repaint();
     }
 
+    public void toggleEnterable (int screenX, int screenY){
+        int x = screenX/GameObject.size;
+        int y = screenY/GameObject.size;
+        GameObject go = lookup(x, y);
+        go.enterable = !go.enterable;
+        happer.calcRoute(this);
+        repaint();
+    }
+    
     public GameObject lookup(int x, int y) {
         for (GameObject go : objecten) {
             if (go.getX() == x && go.getY() == y) {
