@@ -23,7 +23,6 @@ public class Controller implements KeyListener {
     public int height = 15;
 
     private Screen screen;
-    // private GameObject start, end;
 
     private Happer happer;
     private Human human;
@@ -58,7 +57,6 @@ public class Controller implements KeyListener {
             }
         }
 
-
         happer.setEnemy(human);
 
         for (GameObject go : objecten) {
@@ -68,17 +66,10 @@ public class Controller implements KeyListener {
             go.setWest(lookup(go.getX() - 1, go.getY()));
         }
         
-        
-      //  human.setCurrentPos(lookup(width - 1, height - 1));
-     //   happer.setCurrentPos(lookup(0, 0));
-
-      ///  objecten.add(happer);
-      //  objecten.add(human);
-
         happer.calcRoute();
         screen.setVisible(true);
 
-        screen.repaint();
+        refresh();
     }
     
     public void replaceGO(int screenX, int screenY, boolean enterable){
@@ -94,13 +85,11 @@ public class Controller implements KeyListener {
         objecten.add(nieuw);
         objecten.remove(tbr);
         happer.calcRoute();
+        refresh();
     }
 
     public void start() throws InterruptedException {
-        while (true) {
-            screen.repaint();
-            Thread.sleep(1);
-        }
+       refresh();
     }
 
     public GameObject lookup(int x, int y) {
@@ -173,9 +162,13 @@ public class Controller implements KeyListener {
             for (GameObject go : objecten) {
                 go.solution = false;
                 go.cost = 0;
+                if(go.moveable != null){
+                    go.moveable.cost = 0;
+                    go.moveable.solution = false;
+                }
             }
             happer.calcRoute();
         }
-
+        refresh();
     }
 }

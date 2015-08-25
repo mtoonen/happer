@@ -21,9 +21,8 @@ public class Human extends Moveable{
     
     @Override
     public void draw(Graphics g, int drawCost){
-        
         super.draw(g, drawCost);
         g.setColor(Color.orange);
-     //   g.fill3DRect(x *size +5, y*size +5, size -10, size-10, true);
+        g.fill3DRect(x *size +5, y*size +5, size -10, size-10, true);
     }
 }

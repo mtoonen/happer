@@ -39,14 +39,15 @@ public class GameObject implements Comparable<GameObject> {
 
     public void draw(Graphics g, int max) {
         if (enterable) {
-            if (solution) {
+            if (solution || (moveable != null && moveable.solution) ){
                 g.setColor(Color.green);
                 g.fillRect(x * size, y * size, size, size);
             } else {
-                g.setColor(new Color(Color.HSBtoRGB((float) cost / (float) max, 1f, 1f)));
+                g.setColor(Color.RED);
+              //  g.setColor(new Color(Color.HSBtoRGB((float) cost / (float) max, 1f, 1f)));
                 g.fillRect(x * size, y * size, size, size);
             }
-            g.setColor(Color.red);
+            g.setColor(Color.WHITE);
             g.drawString(cost + "", x * size + 2, y * size + 20);
             if (moveable != null) {
                 moveable.draw(g, cost);
@@ -59,8 +60,6 @@ public class GameObject implements Comparable<GameObject> {
         g.setColor(Color.BLACK);
         g.drawRect(x * size, y * size, size, size);
 
-        g.setColor(Color.white);
-        g.drawString("" + id, x * size + 2, y * size + 50);
     }
 
     public void calculate(List<GameObject> length, List<GameObject> done) {
@@ -86,7 +85,6 @@ public class GameObject implements Comparable<GameObject> {
             return;
         }
         traversed.add(this);
-        System.out.println("Via: " +id);
         this.solution = true;
         Set<GameObject> lowestNeighbours = getLowestCostNeighbours(traversed);
         for (GameObject lowestNeighbour : lowestNeighbours) {
