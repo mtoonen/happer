@@ -38,6 +38,7 @@ public class Happer extends Moveable {
             Collections.sort(length);
             GameObject go = length.get(0);
             if (go == enemy || go == enemy.currentPos) {
+                enemy.cost = enemy.currentPos.cost;
                 done.add(enemy.currentPos);
                 break;
             }

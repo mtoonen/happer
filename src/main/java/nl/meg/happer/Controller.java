@@ -114,7 +114,7 @@ public class Controller implements KeyListener {
 
     public void draw(Graphics g) {
         for (GameObject go : objecten) {
-            go.draw(g, width*height);
+            go.draw(g, human.cost);
         }
     }
 
