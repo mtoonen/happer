@@ -53,7 +53,6 @@ public class Controller implements KeyListener {
                     go.setEnterable(true);
                 }
                 objecten.add(go);
-
             }
         }
 
@@ -69,7 +68,7 @@ public class Controller implements KeyListener {
         happer.calcRoute();
         screen.setVisible(true);
 
-        refresh();
+        repaint();
     }
     
     public void replaceGO(int screenX, int screenY, boolean enterable){
@@ -85,11 +84,11 @@ public class Controller implements KeyListener {
         objecten.add(nieuw);
         objecten.remove(tbr);
         happer.calcRoute();
-        refresh();
+        repaint();
     }
 
     public void start() throws InterruptedException {
-       refresh();
+       repaint();
     }
 
     public GameObject lookup(int x, int y) {
@@ -107,7 +106,7 @@ public class Controller implements KeyListener {
         }
     }
 
-    public void refresh() {
+    public void repaint() {
         screen.repaint();
     }
 
@@ -124,7 +123,7 @@ public class Controller implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
     	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-    		System.exit(1);
+    		System.exit(0);
     	}
     }
 
@@ -157,7 +156,6 @@ public class Controller implements KeyListener {
         }
 
         if (moved) {
-
             for (GameObject go : objecten) {
                 go.solution = false;
                 go.cost = 0;
@@ -168,6 +166,6 @@ public class Controller implements KeyListener {
             }
             happer.calcRoute();
         }
-        refresh();
+        repaint();
     }
 }
