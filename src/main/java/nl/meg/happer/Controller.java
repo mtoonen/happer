@@ -6,16 +6,21 @@
 package nl.meg.happer;
 
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
  * @author meine
  */
-public class Controller implements KeyListener {
+public class Controller extends TimerTask  implements KeyListener {
 
     private List<GameObject> objecten = new ArrayList<>();
 
@@ -26,9 +31,18 @@ public class Controller implements KeyListener {
 
     private Happer happer;
     private Human human;
+    
+    private Toolkit toolkit;
+
+    private Timer timer;
+
+    private int speed = 1;
 
     public Controller() {
         screen = new Screen(this, width * GameObject.size, height * GameObject.size);
+        toolkit = Toolkit.getDefaultToolkit();
+        timer = new Timer();
+        timer.scheduleAtFixedRate(this, 0,speed * 1000);
     }
 
     private int count = 0;
@@ -74,20 +88,24 @@ public class Controller implements KeyListener {
     public void start() throws InterruptedException {
        repaint();
     }
+    
+    public void resetCalculations(){
+        for (GameObject go : objecten) {
+            go.solution = false;
+            go.cost = 0;
+            if (go.moveable != null) {
+                go.moveable.cost = 0;
+                go.moveable.solution = false;
+            }
+        }
+    }
 
     public void toggleEnterable (int screenX, int screenY){
         int x = screenX/GameObject.size;
         int y = screenY/GameObject.size;
         GameObject found = lookup(x, y);
         found.enterable = !found.enterable;
-         for (GameObject go : objecten) {
-            go.solution = false;
-            go.cost = 0;
-            if(go.moveable != null){
-                go.moveable.cost = 0;
-                go.moveable.solution = false;
-            }
-        }
+        
         happer.calcRoute(this);
         repaint();
     }
@@ -130,11 +148,22 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+        char dir = e.getKeyChar();
+        boolean moved = move(human, dir);
+        if (moved) {
+            happer.calcRoute(this);
+        }
+        repaint();
+
+    }
+    
+    public boolean move(Moveable obj, char dir){
         boolean moved = false;
-        int curX = human.x;
-        int curY = human.y;
+        int curX = obj.x;
+        int curY = obj.y;
         GameObject possibleNew = null;
-        switch (e.getKeyChar()) {
+        switch (dir) {
             case 'w':
                 possibleNew = lookup(curX, curY-1);
                 break;
@@ -150,23 +179,33 @@ public class Controller implements KeyListener {
         }
         
         if(possibleNew != null && possibleNew.enterable){
-            GameObject prev = lookup(human.x, human.y);
-            prev.setMoveable(null);
-            possibleNew.setMoveable(human);
+            moveTo(obj, possibleNew);
             moved = true;
         }
 
-        if (moved) {
-            for (GameObject go : objecten) {
-                go.solution = false;
-                go.cost = 0;
-                if(go.moveable != null){
-                    go.moveable.cost = 0;
-                    go.moveable.solution = false;
-                }
-            }
-            happer.calcRoute(this);
+        
+        repaint();
+        return moved;
+    }
+    
+    public void moveTo(Moveable mover, GameObject target){
+        GameObject prev = lookup(mover.x, mover.y);
+        prev.setMoveable(null);
+        target.setMoveable(mover);
+    }
+
+    @Override
+    public void run() {
+        Set<GameObject> shortest = happer.getShortestPath();
+        List<GameObject> s = new ArrayList<GameObject>(shortest);
+        GameObject first = null;
+        Collections.sort(s);
+        for (GameObject shortest1 : s) {
+            first = shortest1;
+            break;
         }
+        moveTo(happer, first);
+        happer.calcRoute(this);
         repaint();
     }
 }

@@ -20,6 +20,7 @@ import java.util.Set;
 public class Happer extends Moveable {
     private Human enemy;
     
+    private Set<GameObject> shortestPath = null;
     
     public Happer(int id) {
         super(id);
@@ -27,6 +28,8 @@ public class Happer extends Moveable {
 
     
     public boolean calcRoute(Controller c) {
+        c.resetCalculations();
+        
         List<GameObject> length = new ArrayList<>();
         List<GameObject> done = new ArrayList<>();
         GameObject start = c.lookup(x, y);
@@ -51,14 +54,13 @@ public class Happer extends Moveable {
         }
 
         if (done.contains(end) && done.contains(start)) {
-            System.out.println(  " ******************************");
-            Set<GameObject> traversed = new HashSet<>();
-            end.traverseNeighbours(start, traversed);
+            shortestPath = new HashSet<>();
+            end.traverseNeighbours(start, shortestPath);
             return true;
-        }else{
-        	return false;
+        } else {
+            return false;
         }
-        
+
     }
     
     @Override
@@ -74,4 +76,10 @@ public class Happer extends Moveable {
     public void setEnemy(Human enemy) {
         this.enemy = enemy;
     }
+
+    public Set<GameObject> getShortestPath() {
+        return shortestPath;
+    }
+    
+    
 }
