@@ -24,7 +24,6 @@ public class Happer extends Moveable {
         super(id);
     }
 
-    
     public void calcRoute() {
 
         List<GameObject> length = new ArrayList<>();
@@ -56,8 +55,7 @@ public class Happer extends Moveable {
     
     @Override
     public void draw(Graphics g, int maxCost){
-       // super.draw(g, maxCost);
-        g.setColor(Color.yellow);
+        g.setColor(Color.ORANGE);
         g.fillOval(x*size, y*size, size, size);
     }
 

@@ -39,28 +39,29 @@ public class GameObject implements Comparable<GameObject> {
 
     public void draw(Graphics g, int max) {
         if (enterable) {
-            if (solution) {
-                g.setColor(Color.green);
-                g.fillRect(x * size, y * size, size, size);
-            } else {
-                g.setColor(new Color(Color.HSBtoRGB((float) cost / (float) max, 1f, 1f)));
-                g.fillRect(x * size, y * size, size, size);
-            }
-            g.setColor(Color.red);
-            g.drawString(cost + "", x * size + 2, y * size + 20);
-            if (moveable != null) {
-                moveable.draw(g, cost);
-            }
+            g.setColor(new Color(Color.HSBtoRGB(((float) cost / (float) max), 0.5f, 0.8f)));
+            g.fillRect(x * size, y * size, size, size);
         } else {
-            g.setColor(Color.blue);
+            g.setColor(Color.BLACK);
+            g.fillRect(x * size, y * size, size, size);
+        }
+
+        if (solution) {
+        	g.setColor(new Color(0xaa00ff00, true));
             g.fillRect(x * size, y * size, size, size);
         }
         
         g.setColor(Color.BLACK);
         g.drawRect(x * size, y * size, size, size);
-
-        g.setColor(Color.white);
-        g.drawString("" + id, x * size + 2, y * size + 50);
+        
+        if(enterable) {
+            g.setColor(Color.RED);
+            g.drawString(cost + "", (x * size) + (size / 2), (y * size) + (size / 2));
+        }
+        
+        if (moveable != null) {
+            moveable.draw(g, cost);
+        }
     }
 
     public void calculate(List<GameObject> length, List<GameObject> done) {
@@ -242,7 +243,5 @@ public class GameObject implements Comparable<GameObject> {
     @Override
     public String toString() {
         return (x + "x" + y + ": " + cost);
-
     }
-
 }

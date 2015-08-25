@@ -23,7 +23,6 @@ public class Controller implements KeyListener {
     public int height = 15;
 
     private Screen screen;
-    // private GameObject start, end;
 
     private Happer happer;
     private Human human;
@@ -68,13 +67,6 @@ public class Controller implements KeyListener {
             go.setWest(lookup(go.getX() - 1, go.getY()));
         }
         
-        
-      //  human.setCurrentPos(lookup(width - 1, height - 1));
-     //   happer.setCurrentPos(lookup(0, 0));
-
-      ///  objecten.add(happer);
-      //  objecten.add(human);
-
         happer.calcRoute();
         screen.setVisible(true);
 
@@ -97,10 +89,7 @@ public class Controller implements KeyListener {
     }
 
     public void start() throws InterruptedException {
-        while (true) {
-            screen.repaint();
-            Thread.sleep(1);
-        }
+        screen.repaint();
     }
 
     public GameObject lookup(int x, int y) {
@@ -138,10 +127,6 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int a = 0;
-        if (e.getKeyChar() == 'a') {
-
-        }
         boolean moved = false;
         int curX = human.x;
         int curY = human.y;
@@ -165,16 +150,16 @@ public class Controller implements KeyListener {
             GameObject prev = lookup(human.x, human.y);
             prev.setMoveable(null);
             possibleNew.setMoveable(human);
-            moved=true;
+            moved = true;
         }
 
         if (moved) {
-
             for (GameObject go : objecten) {
                 go.solution = false;
                 go.cost = 0;
             }
             happer.calcRoute();
+            refresh();
         }
 
     }
