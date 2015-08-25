@@ -19,8 +19,8 @@ public class Controller implements KeyListener {
 
     private List<GameObject> objecten = new ArrayList<>();
 
-    public int width = 3;
-    public int height = 2;
+    public int width = 20;
+    public int height = 15;
 
     private Screen screen;
     // private GameObject start, end;
@@ -114,7 +114,7 @@ public class Controller implements KeyListener {
 
     public void draw(Graphics g) {
         for (GameObject go : objecten) {
-            go.draw(g, human.cost);
+            go.draw(g, width + height);
         }
     }
 
