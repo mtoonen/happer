@@ -82,12 +82,12 @@ public class GameObject implements Comparable<GameObject> {
     }
 
     public void traverseNeighbours(GameObject goal, Set<GameObject> traversed) {
-        System.out.println("Via: " +id);
-        this.solution = true;
         if (goal == this || traversed.contains(this)) {
             return;
         }
         traversed.add(this);
+        System.out.println("Via: " +id);
+        this.solution = true;
         Set<GameObject> lowestNeighbours = getLowestCostNeighbours(traversed);
         for (GameObject lowestNeighbour : lowestNeighbours) {
             lowestNeighbour.traverseNeighbours(goal, traversed);
@@ -99,8 +99,8 @@ public class GameObject implements Comparable<GameObject> {
 
             @Override
             public boolean add(GameObject e) {
-                if (e != null && e.isEnterable()) {
-                    return super.add(e); //To change body of generated methods, choose Tools | Templates.
+                if (e != null && e.isEnterable() ) {
+                    return super.add(e);
                 } else {
                     return false;
                 }
@@ -124,13 +124,10 @@ public class GameObject implements Comparable<GameObject> {
         if(nbs.isEmpty()){
             return new HashSet<GameObject>();
         }
-        GameObject lowest = nbs.get(0);
         Set<GameObject> lowestNeighbours = new HashSet<>();
-        lowestNeighbours.add(lowest);
-
-        for (GameObject go : nbs) {
-            if (lowest.cost == go.cost) {
-                lowestNeighbours.add(go);
+        for (GameObject nb : nbs) {
+            if(nb.cost == (this.cost - 1)){
+                lowestNeighbours.add(nb);
             }
         }
         return lowestNeighbours;

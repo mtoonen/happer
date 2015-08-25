@@ -172,7 +172,7 @@ public class Controller implements KeyListener {
 
             for (GameObject go : objecten) {
                 go.solution = false;
-                go.cost = 999999999;
+                go.cost = 0;
             }
             happer.calcRoute();
         }
