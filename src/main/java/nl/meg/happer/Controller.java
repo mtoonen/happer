@@ -19,8 +19,8 @@ public class Controller implements KeyListener {
 
     private List<GameObject> objecten = new ArrayList<>();
 
-    public int width = 20;
-    public int height = 15;
+    public int width = 10;
+    public int height = 10;
 
     private Screen screen;
 
@@ -66,28 +66,12 @@ public class Controller implements KeyListener {
             go.setWest(lookup(go.getX() - 1, go.getY()));
         }
         
-        happer.calcRoute();
+        happer.calcRoute(this);
         screen.setVisible(true);
 
         refresh();
     }
     
-    public void replaceGO(int screenX, int screenY, boolean enterable){
-        int size = GameObject.size;
-        int x = screenX / size;
-        int y = screenY / size;
-        GameObject tbr = lookup(x, y);
-        GameObject nieuw = new GameObject(count++);
-        nieuw.setX(x);
-        nieuw.setY(y);
-        nieuw.setEnterable(enterable);
-        nieuw.setCurrentPos(tbr);
-        objecten.add(nieuw);
-        objecten.remove(tbr);
-        happer.calcRoute();
-        refresh();
-    }
-
     public void start() throws InterruptedException {
        refresh();
     }
@@ -124,7 +108,7 @@ public class Controller implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
     	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-    		System.exit(1);
+    		System.exit(0);
     	}
     }
 
@@ -166,7 +150,7 @@ public class Controller implements KeyListener {
                     go.moveable.solution = false;
                 }
             }
-            happer.calcRoute();
+            happer.calcRoute(this);
         }
         refresh();
     }

@@ -133,29 +133,6 @@ public class GameObject implements Comparable<GameObject> {
         return lowestNeighbours;
     }
 
-    protected void setCurrentPos(GameObject newPos) {
-        if (newPos.north != null) {
-            newPos.north.south = this;
-        }
-        if (newPos.west != null) {
-            newPos.west.east = this;
-        }
-
-        if (newPos.east != null) {
-            newPos.east.west = this;
-        }
-
-        if (newPos.south != null) {
-            newPos.south.north = this;
-        }
-
-        this.x = newPos.x;
-        this.y = newPos.y;
-        this.north = newPos.north;
-        this.east = newPos.east;
-        this.south = newPos.south;
-        this.west = newPos.west;
-    }
 
     @Override
     public int compareTo(GameObject o) {
@@ -234,7 +211,6 @@ public class GameObject implements Comparable<GameObject> {
         if (moveable != null) {
             moveable.x = x;
             moveable.y = y;
-            moveable.setCurrentPos(this);
         }
     }
 
