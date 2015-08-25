@@ -49,6 +49,7 @@ public class Happer extends Moveable {
         }
 
         if (done.contains(enemy.currentPos) && done.contains(this.currentPos)) {
+            System.out.println(  " ******************************");
             Set<GameObject> traversed = new HashSet<>();
             enemy.currentPos.traverseNeighbours(this.currentPos, traversed);
             System.out.println( "YES FOUND!");
@@ -60,7 +61,7 @@ public class Happer extends Moveable {
     
     @Override
     public void draw(Graphics g, int maxCost){
-        g.setColor(Color.yellow);
+        g.setColor(Color.ORANGE);
         g.fillOval(x*size, y*size, size, size);
     }
 

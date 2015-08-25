@@ -127,10 +127,6 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int a = 0;
-        if (e.getKeyChar() == 'a') {
-
-        }
         boolean moved = false;
         int curX = human.x;
         int curY = human.y;
@@ -154,7 +150,7 @@ public class Controller implements KeyListener {
             GameObject prev = lookup(human.x, human.y);
             prev.setMoveable(null);
             possibleNew.setMoveable(human);
-            moved=true;
+            moved = true;
         }
 
         if (moved) {
