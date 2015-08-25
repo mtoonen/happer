@@ -42,7 +42,6 @@ public class Controller extends TimerTask  implements KeyListener {
         screen = new Screen(this, width * GameObject.size, height * GameObject.size);
         toolkit = Toolkit.getDefaultToolkit();
         timer = new Timer();
-        timer.scheduleAtFixedRate(this, 0,speed * 1000);
     }
 
     private int count = 0;
@@ -83,6 +82,7 @@ public class Controller extends TimerTask  implements KeyListener {
     	} while(!happer.calcRoute(this));
     	
         screen.setVisible(true);
+        timer.scheduleAtFixedRate(this, 1000,speed * 1000);
         repaint();
     }
     
@@ -179,20 +179,22 @@ public class Controller extends TimerTask  implements KeyListener {
                 break;
         }
         
-        if(possibleNew != null && possibleNew.enterable){
-            moveTo(obj, possibleNew);
-            moved = true;
-        }
-
         
+        moved = moveTo(obj, possibleNew);
+
         repaint();
         return moved;
     }
     
-    public void moveTo(Moveable mover, GameObject target){
-        GameObject prev = lookup(mover.x, mover.y);
-        prev.setMoveable(null);
-        target.setMoveable(mover);
+    public boolean moveTo(Moveable mover, GameObject target){
+        if (target != null && target.enterable) {
+            GameObject prev = lookup(mover.x, mover.y);
+            prev.setMoveable(null);
+            target.setMoveable(mover);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

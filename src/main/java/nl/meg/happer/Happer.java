@@ -58,6 +58,7 @@ public class Happer extends Moveable {
             end.traverseNeighbours(start, shortestPath);
             return true;
         } else {
+            shortestPath = new HashSet<>();
             return false;
         }
 
