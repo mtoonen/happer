@@ -80,7 +80,8 @@ public class Controller extends TimerTask  implements KeyListener {
 	            go.setWest(lookup(go.getX() - 1, go.getY()));
 	        }
 	        
-    	}while(!happer.calcRoute(this));
+    	} while(!happer.calcRoute(this));
+    	
         screen.setVisible(true);
         repaint();
     }

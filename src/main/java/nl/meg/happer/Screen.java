@@ -63,13 +63,14 @@ class Screen extends JFrame {
     }
 
     private void jPanel2MousePressed(MouseEvent evt) {
-        if(evt.getButton() ==1){
+    	if (evt.getButton() == 1){
+    		controller.toggleEnterable(evt.getX(), evt.getY());
+    	}
+    	
+        if (evt.getButton() == 3){
             controller.init();
         }
         
-        if(evt.getButton() == 3){
-            controller.toggleEnterable(evt.getX(), evt.getY());
-        }
         oldX = evt.getX();
         oldY = evt.getY();
         System.out.println(oldX + " " + oldY);
