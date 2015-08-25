@@ -33,8 +33,7 @@ public class GameObject implements Comparable<GameObject> {
 
     public GameObject(int id) {
         this.id = id;
-          enterable = Math.random() < 0.75;
-
+        enterable = Math.random() < 0.75;
     }
 
     public void draw(Graphics g, int max) {

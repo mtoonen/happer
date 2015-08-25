@@ -26,7 +26,7 @@ public class Happer extends Moveable {
     }
 
     
-    public void calcRoute(Controller c) {
+    public boolean calcRoute(Controller c) {
         List<GameObject> length = new ArrayList<>();
         List<GameObject> done = new ArrayList<>();
         GameObject start = c.lookup(x, y);
@@ -54,9 +54,9 @@ public class Happer extends Moveable {
             System.out.println(  " ******************************");
             Set<GameObject> traversed = new HashSet<>();
             end.traverseNeighbours(start, traversed);
-            System.out.println( "YES FOUND!");
+            return true;
         }else{
-            System.out.println( "NOT FOUND!");
+        	return false;
         }
         
     }

@@ -33,41 +33,41 @@ public class Controller implements KeyListener {
 
     private int count = 0;
     public void init() {
-        count = 0;
-        objecten.clear();
-        
-        happer = new Happer(count++);
-
-        human = new Human(count++);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                GameObject go = new GameObject(count++);
-                go.setX(x);
-                go.setY(y);
-                if (x == 0 && y == 0) {
-                    go.setMoveable(happer);
-                    go.setEnterable(true);
-                }
-                if (x == width - 1 && y == height - 1) {
-                    go.setMoveable(human);
-                    go.setEnterable(true);
-                }
-                objecten.add(go);
-            }
-        }
-
-        happer.setEnemy(human);
-
-        for (GameObject go : objecten) {
-            go.setNorth(lookup(go.getX(), go.getY() - 1));
-            go.setEast(lookup(go.getX() + 1, go.getY()));
-            go.setSouth(lookup(go.getX(), go.getY() + 1));
-            go.setWest(lookup(go.getX() - 1, go.getY()));
-        }
-        
-        happer.calcRoute(this);
+    	do {
+	        count = 0;
+	        objecten.clear();
+	        
+	        happer = new Happer(count++);
+	
+	        human = new Human(count++);
+	        for (int x = 0; x < width; x++) {
+	            for (int y = 0; y < height; y++) {
+	                GameObject go = new GameObject(count++);
+	                go.setX(x);
+	                go.setY(y);
+	                if (x == 0 && y == 0) {
+	                    go.setMoveable(happer);
+	                    go.setEnterable(true);
+	                }
+	                if (x == width - 1 && y == height - 1) {
+	                    go.setMoveable(human);
+	                    go.setEnterable(true);
+	                }
+	                objecten.add(go);
+	            }
+	        }
+	
+	        happer.setEnemy(human);
+	
+	        for (GameObject go : objecten) {
+	            go.setNorth(lookup(go.getX(), go.getY() - 1));
+	            go.setEast(lookup(go.getX() + 1, go.getY()));
+	            go.setSouth(lookup(go.getX(), go.getY() + 1));
+	            go.setWest(lookup(go.getX() - 1, go.getY()));
+	        }
+	        
+    	}while(!happer.calcRoute(this));
         screen.setVisible(true);
-
         repaint();
     }
     
