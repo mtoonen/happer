@@ -43,8 +43,7 @@ public class GameObject implements Comparable<GameObject> {
                 g.setColor(Color.green);
                 g.fillRect(x * size, y * size, size, size);
             } else {
-                g.setColor(new Color(Color.HSBtoRGB((((float) cost) % max) / max, 0.5f, 0.8f)));
-                //g.drawRect(x * size, y * size, size, size);
+                g.setColor(new Color(Color.HSBtoRGB((float) cost / (float) max, 1f, 1f)));
                 g.fillRect(x * size, y * size, size, size);
             }
             g.setColor(Color.red);
@@ -56,6 +55,9 @@ public class GameObject implements Comparable<GameObject> {
             g.setColor(Color.blue);
             g.fillRect(x * size, y * size, size, size);
         }
+        
+        g.setColor(Color.BLACK);
+        g.drawRect(x * size, y * size, size, size);
 
         g.setColor(Color.white);
         g.drawString("" + id, x * size + 2, y * size + 50);
@@ -98,7 +100,7 @@ public class GameObject implements Comparable<GameObject> {
             @Override
             public boolean add(GameObject e) {
                 if (e != null && e.isEnterable() ) {
-                    return super.add(e); //To change body of generated methods, choose Tools | Templates.
+                    return super.add(e);
                 } else {
                     return false;
                 }

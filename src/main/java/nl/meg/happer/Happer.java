@@ -49,7 +49,6 @@ public class Happer extends Moveable {
 
         if (done.contains(enemy.currentPos) && done.contains(this.currentPos)) {
             System.out.println(  " ******************************");
-            GameObject go = enemy;
             Set<GameObject> traversed = new HashSet<>();
             enemy.currentPos.traverseNeighbours(this.currentPos, traversed);
         }

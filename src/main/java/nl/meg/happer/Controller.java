@@ -19,8 +19,8 @@ public class Controller implements KeyListener {
 
     private List<GameObject> objecten = new ArrayList<>();
 
-    public int width = 10;
-    public int height = 10;
+    public int width = 20;
+    public int height = 15;
 
     private Screen screen;
     // private GameObject start, end;
@@ -172,7 +172,7 @@ public class Controller implements KeyListener {
 
             for (GameObject go : objecten) {
                 go.solution = false;
-                go.cost = 999999999;
+                go.cost = 0;
             }
             happer.calcRoute();
         }
