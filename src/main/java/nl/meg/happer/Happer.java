@@ -25,7 +25,6 @@ public class Happer extends Moveable {
     }
 
     public void calcRoute() {
-
         List<GameObject> length = new ArrayList<>();
         List<GameObject> done = new ArrayList<>();
         cost = 0;

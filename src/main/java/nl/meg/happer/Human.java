@@ -18,7 +18,6 @@ public class Human extends Moveable{
         super(id);
     }
     
-    
     @Override
     public void draw(Graphics g, int drawCost){
     	g.setColor(Color.GREEN);

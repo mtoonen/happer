@@ -123,6 +123,9 @@ public class Controller implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+    	if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+    		System.exit(1);
+    	}
     }
 
     @Override
